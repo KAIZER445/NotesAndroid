@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import own.project.notes.data.Notes
 import own.project.notes.data.dummyNotes
+import own.project.notes.ui.MainLayout
 import own.project.notes.ui.TopBar
 
 
@@ -33,53 +34,40 @@ fun HomeView(homeViewModel: HomeViewModel = viewModel()){
 
     val noteList = homeViewModel.noteList.collectAsState().value
 
-    Scaffold(
-        topBar = {
-                 TopBar()
-        },
-        floatingActionButton ={
-            FloatingActionButton(
-                onClick = { /*TODO*/ },
-                containerColor = colorResource(id = R.color.orange),
-                contentColor = Color.White
-            ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Note")
-            }
-        }
-    ) {
-
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(it)
-                    .background(Color.Black)
-            ) {
-                for (i in 0 until noteList.size) {
+    MainLayout {
+        paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .background(Color.Black)
+        ) {
+            for (i in 0 until noteList.size) {
+                Column(
+                    modifier = Modifier
+                        .padding(6.dp)
+                        .background(
+                            colorResource(id = R.color.darker_gray),
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .fillMaxWidth()
+                ) {
                     Column(
-                        modifier = Modifier
-                            .padding(6.dp)
-                            .background(
-                                colorResource(id = R.color.darker_gray),
-                                shape = RoundedCornerShape(8.dp)
-                            )
-                            .fillMaxWidth()
+                        modifier = Modifier.padding(10.dp)
                     ) {
-                        Column(
-                            modifier = Modifier.padding(10.dp)
-                        ) {
-                            Text(
-                                text = noteList[i].title,
-                                color = Color.White,
-                            )
-                            Spacer(modifier = Modifier.padding(bottom = 4.dp))
-                            Text(
-                                text = noteList[i].description,
-                                color = Color.Gray
-                            )
-                        }
-
+                        Text(
+                            text = noteList[i].title,
+                            color = Color.White,
+                        )
+                        Spacer(modifier = Modifier.padding(bottom = 4.dp))
+                        Text(
+                            text = noteList[i].description,
+                            color = Color.Gray
+                        )
                     }
+
                 }
             }
+        }
     }
 }
