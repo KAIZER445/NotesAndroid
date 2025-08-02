@@ -16,19 +16,23 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import own.project.notes.data.Notes
 import own.project.notes.data.dummyNotes
 import own.project.notes.ui.TopBar
 
 
-val dummyData = dummyNotes
 @Composable
-fun HomeView(){
+fun HomeView(homeViewModel: HomeViewModel = viewModel()){
+
+    val noteList = homeViewModel.noteList.collectAsState().value
+
     Scaffold(
         topBar = {
                  TopBar()
@@ -50,7 +54,7 @@ fun HomeView(){
                     .padding(it)
                     .background(Color.Black)
             ) {
-                for (i in 0 until dummyData.noteList.size) {
+                for (i in 0 until noteList.size) {
                     Column(
                         modifier = Modifier
                             .padding(6.dp)
@@ -64,12 +68,12 @@ fun HomeView(){
                             modifier = Modifier.padding(10.dp)
                         ) {
                             Text(
-                                text = dummyData.noteList[i].title,
+                                text = noteList[i].title,
                                 color = Color.White,
                             )
                             Spacer(modifier = Modifier.padding(bottom = 4.dp))
                             Text(
-                                text = dummyData.noteList[i].description,
+                                text = noteList[i].description,
                                 color = Color.Gray
                             )
                         }
