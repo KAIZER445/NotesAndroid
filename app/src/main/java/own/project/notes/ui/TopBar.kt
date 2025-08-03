@@ -17,12 +17,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import own.project.notes.Screen
 
 
 @Composable
-fun TopBar(){
+fun TopBar(navController: NavController){
 
-    val iconButtonVisibility = false
+    val iconButtonVisibility = true
 
     Row(
         modifier = Modifier
@@ -41,7 +43,9 @@ fun TopBar(){
 
         if (iconButtonVisibility){
             IconButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                   navController.navigate(Screen.HomeScreen.route)
+                },
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,

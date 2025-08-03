@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import own.project.notes.data.Notes
 import own.project.notes.data.dummyNotes
 import own.project.notes.ui.MainLayout
@@ -30,11 +31,11 @@ import own.project.notes.ui.TopBar
 
 
 @Composable
-fun HomeView(homeViewModel: HomeViewModel = viewModel()){
+fun HomeView(navController: NavController,homeViewModel: HomeViewModel = viewModel()){
 
     val noteList = homeViewModel.noteList.collectAsState().value
 
-    MainLayout {
+    MainLayout(navController = navController) {
         paddingValues ->
         Column(
             modifier = Modifier
