@@ -22,9 +22,8 @@ import own.project.notes.Screen
 
 
 @Composable
-fun TopBar(navController: NavController){
+fun TopBar(navController: NavController, currentScreen: String?){
 
-    val iconButtonVisibility = true
 
     Row(
         modifier = Modifier
@@ -34,14 +33,20 @@ fun TopBar(navController: NavController){
             verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "Home",
+            text =
+            if (currentScreen == "home-screen")
+            {
+             "Home"
+             }else{
+             "Detail"
+             },
             color = Color.White,
             modifier = Modifier.padding(13.dp),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold
         )
 
-        if (iconButtonVisibility){
+        if (currentScreen == "detail-screen"){
             IconButton(
                 onClick = {
                    navController.navigate(Screen.HomeScreen.route)
