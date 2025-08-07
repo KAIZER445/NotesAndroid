@@ -17,4 +17,8 @@ class NotesRepository(private val notesDao: NotesDao) {
     }
 
     fun getNotes (): Flow<List<Notes>> = notesDao.getAllNotes()
+
+    fun getNotesFromId (Id: Long):Flow<Notes>{
+        return notesDao.getNotesFromId(Id)
+    }
 }
