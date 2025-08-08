@@ -12,8 +12,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -35,11 +37,15 @@ fun DetailView(navController: NavController){
         mutableStateOf("")
     }
 
+    var showCheckIcon by remember {
+        mutableStateOf((false))
+    }
+
     val currentTime = LocalDateTime.now()
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     val finalTimeStamp = currentTime.format(formatter)
 
-    MainLayout(navController = navController) {
+    MainLayout(navController = navController, showCheckIcon = showCheckIcon) {
         paddingValues ->
         Column(
             modifier = Modifier
@@ -49,7 +55,10 @@ fun DetailView(navController: NavController){
         ) {
             TextField(
                 value = title.value,
-                onValueChange = {title.value = it},
+                onValueChange = {
+                    title.value = it
+                    showCheckIcon = title.value.isNotBlank() && description.value.isNotBlank()
+                                },
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = {Text(
                     text = "Title",
@@ -73,7 +82,10 @@ fun DetailView(navController: NavController){
             )
             TextField(
                 value = description.value,
-                onValueChange = {description.value = it},
+                onValueChange = {
+                    description.value = it
+                    showCheckIcon = title.value.isNotBlank() && description.value.isNotBlank()
+                                },
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = {Text(
                     text = "start typing",

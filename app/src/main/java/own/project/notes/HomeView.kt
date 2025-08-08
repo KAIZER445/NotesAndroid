@@ -1,50 +1,43 @@
 package own.project.notes
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import own.project.notes.data.Notes
-import own.project.notes.data.dummyNotes
 import own.project.notes.ui.MainLayout
-import own.project.notes.ui.TopBar
 
 
 @Composable
 fun HomeView(navController: NavController,homeViewModel: HomeViewModel = viewModel()){
 
-    val noteList = homeViewModel.noteList.collectAsState().value
-
-    MainLayout(navController = navController) {
+    MainLayout(navController = navController, showCheckIcon = false) {
         paddingValues ->
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
                 .background(Color.Black)
         ) {
-            for (i in 0 until noteList.size) {
+            val noteList = homeViewModel.getAllNotes.collectAsState(initial = listOf())
+            for (i in 0 until noteList.value.size) {
                 Column(
                     modifier = Modifier
                         .padding(6.dp)
@@ -58,17 +51,17 @@ fun HomeView(navController: NavController,homeViewModel: HomeViewModel = viewMod
                         modifier = Modifier.padding(10.dp)
                     ) {
                         Text(
-                            text = noteList[i].title,
+                            text = noteList.value[i].title,
                             color = Color.White,
                         )
                         Spacer(modifier = Modifier.padding(bottom = 4.dp))
                         Text(
-                            text = noteList[i].description,
+                            text = noteList.value[i].description,
                             color = Color.Gray
                         )
                         Spacer(modifier = Modifier.padding(bottom = 6.dp))
                         Text(
-                            text = noteList[i].date,
+                            text = noteList.value[i].date,
                             color = Color.Gray,
                             style = MaterialTheme.typography.bodySmall
                         )

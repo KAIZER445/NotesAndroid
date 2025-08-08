@@ -13,12 +13,8 @@ import own.project.notes.data.NotesRepository
 import own.project.notes.data.dummyNotes
 
 class HomeViewModel(
-    private val notesRepository: NotesRepository
+    private val notesRepository: NotesRepository = Graph.notesRepository
 ) : ViewModel(){
-
-    private val _noteList = MutableStateFlow(dummyNotes.noteList)
-
-    val noteList:StateFlow<List<Notes>> =_noteList
 
     lateinit var getAllNotes: Flow<List<Notes>>
 

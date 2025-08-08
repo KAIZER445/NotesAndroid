@@ -18,6 +18,7 @@ import own.project.notes.Screen
 @Composable
 fun MainLayout(
     navController: NavController,
+    showCheckIcon: Boolean,
     content:@Composable (paddingValues: androidx.compose.foundation.layout.PaddingValues) -> Unit
 ){
 
@@ -26,7 +27,7 @@ fun MainLayout(
 
     Scaffold(
         topBar = {
-            TopBar(navController = navController, currentRoute)
+            TopBar(navController = navController, currentRoute, showCheckIcon)
         },
         floatingActionButton ={
             if(currentRoute == "home-screen"){

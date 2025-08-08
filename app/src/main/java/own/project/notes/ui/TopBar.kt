@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -22,8 +23,7 @@ import own.project.notes.Screen
 
 
 @Composable
-fun TopBar(navController: NavController, currentScreen: String?){
-
+fun TopBar(navController: NavController, currentScreen: String?,showIconCheck: Boolean){
 
     Row(
         modifier = Modifier
@@ -32,24 +32,18 @@ fun TopBar(navController: NavController, currentScreen: String?){
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            text =
-            if (currentScreen == "home-screen")
-            {
-             "Home"
-             }else{
-             "Detail"
-             },
-            color = Color.White,
-            modifier = Modifier.padding(13.dp),
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold
-        )
-
-        if (currentScreen == "detail-screen"){
+        if (currentScreen == "home-screen"){
+            Text(
+                text = "Home",
+                color = Color.White,
+                modifier = Modifier.padding(13.dp),
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+        }else{
             IconButton(
                 onClick = {
-                   navController.navigate(Screen.HomeScreen.route)
+                    navController.navigate(Screen.HomeScreen.route)
                 },
             ) {
                 Icon(
@@ -60,5 +54,21 @@ fun TopBar(navController: NavController, currentScreen: String?){
                 )
             }
         }
+
+        if (showIconCheck){
+            IconButton(
+                onClick = {
+                    navController.navigate(Screen.HomeScreen.route)
+                },
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "submit",
+                    tint = Color.White,
+                    modifier = Modifier.padding(end = 10.dp)
+                )
+            }
+        }
+
     }
 }
