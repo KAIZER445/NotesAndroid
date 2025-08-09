@@ -35,7 +35,6 @@ fun TopBar(
     viewModel: HomeViewModel,
     id: Long
 ){
-
     val scope = rememberCoroutineScope()
 
     Row(
@@ -93,8 +92,6 @@ fun TopBar(
                             )
                         }
                     }
-
-
                     scope.launch {
                         navController.navigateUp()
                     }
@@ -108,6 +105,5 @@ fun TopBar(
                 )
             }
         }
-
     }
 }

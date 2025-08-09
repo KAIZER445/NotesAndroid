@@ -44,7 +44,7 @@ fun MainLayout(
                     Icon(imageVector = Icons.Default.Add, contentDescription = "Add Note")
                 }
             }
-        }
+        },
     ) {
         paddingValues -> content(paddingValues)
     }
