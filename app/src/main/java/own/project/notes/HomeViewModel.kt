@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import own.project.notes.data.Notes
 import own.project.notes.data.NotesRepository
-import own.project.notes.data.dummyNotes
 
 class HomeViewModel(
     private val notesRepository: NotesRepository = Graph.notesRepository

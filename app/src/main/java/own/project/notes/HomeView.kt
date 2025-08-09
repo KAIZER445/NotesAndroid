@@ -1,6 +1,7 @@
 package own.project.notes
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,6 +39,7 @@ fun HomeView(navController: NavController,homeViewModel: HomeViewModel = viewMod
         ) {
             val noteList = homeViewModel.getAllNotes.collectAsState(initial = listOf())
             for (i in 0 until noteList.value.size) {
+                val id = noteList.value[i].id
                 Column(
                     modifier = Modifier
                         .padding(6.dp)
@@ -46,6 +48,9 @@ fun HomeView(navController: NavController,homeViewModel: HomeViewModel = viewMod
                             shape = RoundedCornerShape(8.dp)
                         )
                         .fillMaxWidth()
+                        .clickable {
+                            navController.navigate(Screen.DetailScreen.route + "/$id")
+                        }
                 ) {
                     Column(
                         modifier = Modifier.padding(10.dp)

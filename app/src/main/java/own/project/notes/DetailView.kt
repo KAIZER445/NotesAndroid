@@ -1,6 +1,7 @@
 package own.project.notes
 
 import android.annotation.SuppressLint
+import android.provider.ContactsContract.CommonDataKinds.Note
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,23 +13,28 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import own.project.notes.data.Notes
 import own.project.notes.ui.MainLayout
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 @SuppressLint("NewApi")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailView(navController: NavController){
+fun DetailView(navController: NavController, viewModel: HomeViewModel, id: Long){
     val title = remember {
         mutableStateOf("")
     }
@@ -45,7 +51,25 @@ fun DetailView(navController: NavController){
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     val finalTimeStamp = currentTime.format(formatter)
 
-    MainLayout(navController = navController, showCheckIcon = showCheckIcon) {
+    val noteInput = Notes(
+        title = title.value,
+        description = description.value,
+        date = finalTimeStamp
+    )
+
+    val note by viewModel.getNotesFromId(id).collectAsState(initial = null)
+    LaunchedEffect(note) {
+        note?.let {
+            title.value = it.title
+            description.value = it.description
+        }
+    }
+
+    MainLayout(
+        navController = navController,
+        showCheckIcon = showCheckIcon,
+        noteInput = noteInput
+    ) {
         paddingValues ->
         Column(
             modifier = Modifier
@@ -56,7 +80,7 @@ fun DetailView(navController: NavController){
             TextField(
                 value = title.value,
                 onValueChange = {
-                    title.value = it
+                    title.value =  it
                     showCheckIcon = title.value.isNotBlank() && description.value.isNotBlank()
                                 },
                 modifier = Modifier.fillMaxWidth(),

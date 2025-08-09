@@ -12,28 +12,30 @@ import androidx.compose.ui.res.colorResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import own.project.notes.HomeViewModel
 import own.project.notes.R
 import own.project.notes.Screen
+import own.project.notes.data.Notes
 
 @Composable
 fun MainLayout(
     navController: NavController,
     showCheckIcon: Boolean,
+    noteInput: Notes? = null,
     content:@Composable (paddingValues: androidx.compose.foundation.layout.PaddingValues) -> Unit
 ){
-
     val currentBackStackEntry = navController.currentBackStackEntryAsState()
     val currentRoute = currentBackStackEntry.value?.destination?.route
 
     Scaffold(
         topBar = {
-            TopBar(navController = navController, currentRoute, showCheckIcon)
+            TopBar(navController = navController, currentRoute, showCheckIcon, noteInput, viewModel = HomeViewModel())
         },
         floatingActionButton ={
             if(currentRoute == "home-screen"){
                 FloatingActionButton(
                     onClick = {
-                        navController.navigate(Screen.DetailScreen.route)
+                        navController.navigate(Screen.DetailScreen.route + "/0L")
                     },
                     containerColor = colorResource(id = R.color.orange),
                     contentColor = Color.White
