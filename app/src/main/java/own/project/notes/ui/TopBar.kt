@@ -32,7 +32,8 @@ fun TopBar(
     currentScreen: String?,
     showIconCheck: Boolean,
     noteInput: Notes?,
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
+    id: Long
 ){
 
     val scope = rememberCoroutineScope()
@@ -70,15 +71,29 @@ fun TopBar(
         if (showIconCheck){
             IconButton(
                 onClick = {
-                    noteInput?.let {
-                        viewModel.addNotes(
-                            Notes(
-                                title = it.title.trim(),
-                                description = it.description.trim(),
-                                date = it.date
+                    if (id ==0L){
+                        noteInput?.let {
+                            viewModel.addNotes(
+                                Notes(
+                                    title = it.title.trim(),
+                                    description = it.description.trim(),
+                                    date = it.date
+                                )
                             )
-                        )
+                        }
+                    }else{
+                        noteInput?.let {
+                            viewModel.updateNotes(
+                                Notes(
+                                    id = id,
+                                    title = it.title.trim(),
+                                    description = it.description.trim(),
+                                    date = it.date
+                                )
+                            )
+                        }
                     }
+
 
                     scope.launch {
                         navController.navigateUp()

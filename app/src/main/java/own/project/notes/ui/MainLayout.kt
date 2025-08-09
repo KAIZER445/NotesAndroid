@@ -22,6 +22,7 @@ fun MainLayout(
     navController: NavController,
     showCheckIcon: Boolean,
     noteInput: Notes? = null,
+    id: Long,
     content:@Composable (paddingValues: androidx.compose.foundation.layout.PaddingValues) -> Unit
 ){
     val currentBackStackEntry = navController.currentBackStackEntryAsState()
@@ -29,7 +30,7 @@ fun MainLayout(
 
     Scaffold(
         topBar = {
-            TopBar(navController = navController, currentRoute, showCheckIcon, noteInput, viewModel = HomeViewModel())
+            TopBar(navController = navController, currentRoute, showCheckIcon, noteInput, viewModel = HomeViewModel(), id)
         },
         floatingActionButton ={
             if(currentRoute == "home-screen"){

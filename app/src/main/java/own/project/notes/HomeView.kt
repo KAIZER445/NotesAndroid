@@ -28,7 +28,7 @@ import own.project.notes.ui.MainLayout
 @Composable
 fun HomeView(navController: NavController,homeViewModel: HomeViewModel = viewModel()){
 
-    MainLayout(navController = navController, showCheckIcon = false) {
+    MainLayout(navController = navController, showCheckIcon = false, id = 0L) {
         paddingValues ->
 
         Column(

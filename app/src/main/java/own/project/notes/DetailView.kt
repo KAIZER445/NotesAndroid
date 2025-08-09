@@ -68,7 +68,8 @@ fun DetailView(navController: NavController, viewModel: HomeViewModel, id: Long)
     MainLayout(
         navController = navController,
         showCheckIcon = showCheckIcon,
-        noteInput = noteInput
+        noteInput = noteInput,
+        id = id
     ) {
         paddingValues ->
         Column(
