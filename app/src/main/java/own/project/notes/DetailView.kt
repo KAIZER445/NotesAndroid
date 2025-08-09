@@ -1,7 +1,6 @@
 package own.project.notes
 
 import android.annotation.SuppressLint
-import android.provider.ContactsContract.CommonDataKinds.Note
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +17,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,7 +26,6 @@ import androidx.navigation.NavController
 import own.project.notes.data.Notes
 import own.project.notes.ui.MainLayout
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 @SuppressLint("NewApi")
